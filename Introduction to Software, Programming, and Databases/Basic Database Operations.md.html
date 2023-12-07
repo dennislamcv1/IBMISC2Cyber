@@ -1,0 +1,471 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unpkg.com/@highlightjs/cdn-assets@10.7.1/styles/default.min.css">
+  </head>
+  <body>
+    <h1><strong>Basic Database Operations</strong></h1>
+    <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-CS0151EN-SkillsNetwork/labs/Module_4/Lab_Basic_Database_Operations/images/IDSNlogo.png" width="200" alt="IBM Developer Skills Network Logo">
+    <p><strong>Estimated Time Needed</strong>: 45 min</p>
+    <p>In this lab, you will create a database, import data to populate a table, and perform basic database operations in the MySQL database service using the phpMyAdmin graphical user interface (GUI) tool.</p><br>
+    <h2><strong>Objectives</strong></h2>
+    <p>After completing this lab, you will be able to use phpMyAdmin with MySQL to:</p>
+    <ul>
+      <li>Create and populate a database and table</li>
+      <li>Execute Structured Query Language (SQL) commands to perform basic database operations</li>
+      <li>Retrieve data from tables using simple SELECT statements</li>
+      <li>Learn how to filter the data output using WHERE statements</li>
+      <li>Add and delete data from a table using ADD and DELETE statements</li>
+    </ul>
+    <h1></h1>
+    <h2>Software used in this lab</h2>
+    <p>
+      <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-CS0151EN-SkillsNetwork/labs/Module_4/Lab_Basic_Database_Operations/images/01_MySQL_Logo.png" width="150" alt="MySQL Logo"><br>
+    </p>
+    <p>You will use MySQL to complete this lab. MySQL is a free, open-source relational database system that offers a command line interface (MySQL) and a third-party web interface (phpMyAdmin) to efficiently store, manipulate, and retrieve data.</p>
+    <p>MySQL is a service available on Skills Network Labs (SN Labs) Cloud IDE, a virtual lab environment used in this course. SN Labs Cloud IDE is great way to do projects without downloading, installing, configuring, and integrating software on your own computer.</p><br>
+    <h3><strong>Two Components of the SN Labs Cloud IDE</strong></h3>
+    <ol>
+      <li>
+        <p>The instructions that you will follow to complete this lab are displayed on the left side of the screen.</p>
+      </li>
+      <li>
+        <p>The area on the right side of the screen is where you will use the menus, terminals, and tools to complete the lab exercises.</p>
+      </li>
+    </ol>
+    <p>
+      <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-CS0151EN-SkillsNetwork/labs/Module_4/Lab_Basic_Database_Operations/images/02_Lab_Displays.png" alt="Lab Instructions and IDE Displays"><br>
+    </p>
+    <h1></h1>
+    <h2><strong>Dataset used in This Lab</strong></h2>
+    <p>The dataset used in this lab is single Open Document Spreadsheet file (.ods) that contains 10 (ten) rows and 6 (six) columns of fictitious customer demographics and insurance policy data. To complete the exercises in this lab, you will be instructed to save and upload the dataset <a href="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-CS0151EN-SkillsNetwork/labs/Module_4/Lab_Basic_Database_Operations/Insurance-info.ods" target="_blank" rel="external">Insurance-info.ods</a>.</p>
+    <p>
+      <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-CS0151EN-SkillsNetwork/labs/Module_4/Lab_Basic_Database_Operations/images/03_Insurance-info_Display.png" alt="Insurance-info Spreadsheet Display"><br>
+    </p>
+    <h1></h1>
+    <h2><strong>Lab Exercises</strong></h2>
+    <p>Through a series of exercises, you will perform basic operations in a relational database system:</p>
+    <ul>
+      <li>Exercise 1: Create a database</li>
+      <li>Exercise 2: Import a table and data</li>
+      <li>Exercise 3: Select data from a database</li>
+      <li>Exercise 4: Filter data output</li>
+      <li>Exercise 5: Add a new row to a table</li>
+      <li>Exercise 6: Delete a row from a table</li>
+      <li>Exercise 7: Delete a table from a database</li>
+    </ul>
+    <h1></h1>
+    <h2>Exercise 1: Create a database</h2>
+    <h2>Task A: Start MySQL and phpMyAdmin GUI</h2>
+    <p><strong>Step 1:</strong> In the navigation toolbar on the left side of the SN Labs Cloud IDE (also known as the virtual lab environment), select the Skills Network Toolbox icon.</p>
+    <p><strong>Step 2:</strong> In the Toolbox options, select "Databases".</p>
+    <p><strong>Step 3:</strong> In the Databases sub-menu, select "MySQL".</p>
+    <p><strong>Step 4:</strong> Select the "Start" button to connect to MySQL. It may take up to a couple of minutes to start the MySQL database server.</p>
+    <p>
+      <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-CS0151EN-SkillsNetwork/labs/Module_4/Lab_Basic_Database_Operations/images/04_StartMySQL.png" alt="Start MySQL"><br><br>
+    </p>
+    <p><strong>Step 5:</strong> When the status next to "MySQL" is "Active", select the "phpMyAdmin" button to launch the GUI.</p>
+    <p>
+      <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-CS0151EN-SkillsNetwork/labs/Module_4/Lab_Basic_Database_Operations/images/05_phpMyAdmin.png" alt="Open phpMyAdmin"><br>
+    </p>
+    <hr>
+    <h2>Task B: Create a new database</h2>
+    <p>A database is a data structure that stores organized information and is accessed electronically. A database consists of one or more tables that are made up of multiple rows and columns of data.</p>
+    <p><strong>Step 1:</strong> Using the top menu of the phpMyAdmin screen, select the "Databases" tab.</p>
+    <p><strong>Step 2:</strong> Type "Insurance" in the text field that currently displays "Database Name".</p>
+    <p><strong>Step 3:</strong> Lastly, select the "Create" button.</p>
+    <p>
+      <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-CS0151EN-SkillsNetwork/labs/Module_4/Lab_Basic_Database_Operations/images/06_CreateDB.png" alt="Create New Database"><br>
+    </p>
+    <h1></h1>
+    <h2>Exercise 2: Import a table and data</h2>
+    <p>A table is a collection of related data that is stored in columns and rows like an Excel spreadsheet. The columns of the table, also known as "fields", are the vertical groupings (or categories) of data. The rows of the table, known as "records", are the horizontal groupings of unique data.</p>
+    <hr>
+    <h2>Task A: Add table and import data</h2>
+    <p>
+      <strong>Step 1:</strong> Download the dataset to your local computer by <strong>Right-Clicking</strong> on the following link and choose <strong>Save Link As...</strong>:
+      <a href="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-CS0151EN-SkillsNetwork/labs/Module_4/Lab_Basic_Database_Operations/Insurance-info.ods" target="_blank" rel="external">Insurance-info.ods</a>
+    </p>
+    <ul>
+      <li>You will be prompted for a location to download the file on your computer. The prompt may look a little different that the one below depnding on your web browser.</li>
+    </ul>
+    <p>
+      <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-CS0151EN-SkillsNetwork/labs/Module_4/Lab_Basic_Database_Operations/images/27_X2A_SaveLinkAs_Chrome.png" alt="Save Link As"><br>
+    </p>
+    <ul>
+      <li>Select a suitable destination and <strong>Save</strong> the file on your device. The prompt may look a little different that the one below depnding on your operating system.</li>
+    </ul>
+    <p>
+      <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-CS0151EN-SkillsNetwork/labs/Module_4/Lab_Basic_Database_Operations/images/28_X2A_Save_MacOS.png" alt="Save MacOS">
+      <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-CS0151EN-SkillsNetwork/labs/Module_4/Lab_Basic_Database_Operations/images/29_X2A_Save_Windows.png" alt="Save Windows"><br>
+    </p>
+    <p><strong>Step 2:</strong> In the phpMyAdmin screen, select the "Import" tab from the top menu.</p>
+    <p>
+      <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-CS0151EN-SkillsNetwork/labs/Module_4/Lab_Basic_Database_Operations/images/07_Import.png" alt="Menu with Import Tab"><br>
+    </p>
+    <p><strong>Step 3:</strong> In the next screen, select "Choose File" to and the file "Insurance-info.ods" from your computer.</p>
+    <p><strong>Step 4:</strong> Scroll down to "Format-specific options" and select the first checkbox to indicate: "The first line of file contains table column names".</p>
+    <p><strong>Step 5:</strong> Select the "Go" button.</p>
+    <p>
+      <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-CS0151EN-SkillsNetwork/labs/Module_4/Lab_Basic_Database_Operations/images/08_ImportFile.png" alt="Import File Options"><br>
+    </p>
+    <p>When these steps are completed successfully, you will see the following screen that confirms:</p>
+    <ol>
+      <li>
+        <p>The table named <code>Policy</code> has been created.</p>
+      </li>
+      <li>
+        <p>Ten rows and six columns of data were added to the table.</p>
+      </li>
+    </ol>
+    <p>
+      <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-CS0151EN-SkillsNetwork/labs/Module_4/Lab_Basic_Database_Operations/images/09_ImportDone.png" alt="Data Import Confirmation"><br>
+    </p>
+    <h1></h1>
+    <h2>Exercise 3: Select data from a database</h2>
+    <p>Structured Query Language (SQL) Statements, also known as "commands", are used to communicate with a database to retrieve data, or modify its structure and its contents.</p>
+    <p>The <code>SELECT</code> statement is a database query that is used to request data from the relevant rows and columns in a table. The output of the query is stored and displayed in a table known as the SQL result-set.</p>
+    <p><strong>Syntax of a <code>SELECT</code> Statement</strong></p>
+    <pre><code class="hljs language-pgsql"><span class="hljs-keyword">SELECT</span> column1, column2
+<span class="hljs-keyword">FROM</span> <span class="hljs-built_in">table_name</span>;
+</code></pre>
+    <ul>
+      <li>The first line selects the field/column names of the data to be displayed.</li>
+      <li>The second line indicates the name of the table where the selected data is stored.</li>
+    </ul>
+    <hr>
+    <h2>Task A: Review the Source Code</h2>
+    <p><strong>Step 1:</strong> In the phpMyAdmin screen, select the "SQL" tab from the top menu to access the query box.</p>
+    <p><strong>Step 2:</strong> Copy the code block below and paste it into the query box.</p>
+    <pre><code class="hljs language-pgsql"><span class="hljs-keyword">SELECT</span> *
+<span class="hljs-keyword">FROM</span> <span class="hljs-keyword">Policy</span>;
+</code></pre>
+    <p></p>
+    <ul>
+      <li>The asterisk ( * ) in the first line of this <code>SELECT</code> statement is a wildcard character used to indicate that data from all columns should be returned in the query output.</li>
+    </ul>
+    <p><strong>Step 3:</strong> Select the "Go" button.</p>
+    <p>
+      <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-CS0151EN-SkillsNetwork/labs/Module_4/Lab_Basic_Database_Operations/images/10_X3A_SQL_Screen.png" alt="SQL Screen with Query Box"><br>
+    </p>
+    <p><strong>Step 4:</strong> Review the query output. When these steps are completed correctly, the query output will display all 6 columns and 10 rows of data from the Policy table.</p>
+    <p>
+      <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-CS0151EN-SkillsNetwork/labs/Module_4/Lab_Basic_Database_Operations/images/11_X3A_Complete.png" alt="Result set with all table data"><br>
+    </p>
+    <hr>
+    <h2>Task B: Write the SQL Statement</h2>
+    <p><strong>Step 1:</strong> Select the "SQL" tab from the top menu to access the query box.</p>
+    <p>
+      <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-CS0151EN-SkillsNetwork/labs/Module_4/Lab_Basic_Database_Operations/images/12_SQL.png" alt="Menu with SQL Tab"><br>
+    </p>
+    <p><strong>Step 2:</strong> Use the "Clear" button to delete the previous SQL Statement.</p>
+    <p><strong>Step 3:</strong> In the query box, write a <code>SELECT</code> statement to display the columns <code>PolicyID</code> and <code>ConstructionType</code> from the table named <code>Policy</code>.</p>
+    <p><strong>Step 4:</strong> Select the "Go" button.</p>
+    <p>
+      <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-CS0151EN-SkillsNetwork/labs/Module_4/Lab_Basic_Database_Operations/images/13_X3B_SQL_Screen.png" alt="SQL Screen with Query Box"><br>
+    </p>
+    <p><strong>Step 5:</strong> Review the query output. When these steps are completed correctly, the query output will display 2 columns and 10 rows of data from the Policy table.</p>
+    <p>
+      <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-CS0151EN-SkillsNetwork/labs/Module_4/Lab_Basic_Database_Operations/images/14_X3B_Complete.png" alt="Result set with all data for 2 fields"><br>
+    </p>
+    <details>
+      <summary>Click here for Hint</summary>
+      <blockquote>
+        <p>Use the column names in your SQL statement instead of the wildcard character (*).</p>
+      </blockquote>
+    </details><br>
+    <details>
+      <summary>Click here for Solution</summary>
+      <blockquote></blockquote>
+      <pre><code class="hljs language-pgsql"><span class="hljs-keyword">SELECT</span> PolicyID, ConstructionType
+<span class="hljs-keyword">FROM</span> <span class="hljs-keyword">Policy</span>;
+</code></pre>
+      <p></p>
+    </details>
+    <h1></h1>
+    <h2>Exercise 4: Filter data output</h2>
+    <p>The <code>WHERE</code> statement defines a condition used to filter records and limit the amount of data returned in the query output.</p>
+    <p><strong>Sytnax of a <code>WHERE</code> Statement</strong></p>
+    <pre><code class="hljs language-pgsql"><span class="hljs-keyword">SELECT</span> column1, column2, ...
+<span class="hljs-keyword">FROM</span> <span class="hljs-built_in">table_name</span>
+<span class="hljs-keyword">WHERE</span> condition;
+</code></pre>
+    <p></p>
+    <ul>
+      <li>The first line selects the field/column names of the data to be displayed.</li>
+      <li>The second line indicates the name of the table where the selected data is stored.</li>
+      <li>The third line defines the conditon to test and limit the data in the query output.</li>
+    </ul>
+    <hr>
+    <h2>Task A: Review the Source Code</h2>
+    <p><strong>Step 1:</strong> Select the "SQL" tab from the top menu to access the query box.</p>
+    <p><strong>Step 2:</strong> Use the "Clear" button to delete the previous SQL Statement.</p>
+    <p><strong>Step 3:</strong> Copy and paste the code block below to the query box to filter and display the records from the Policy table that have Masonry construction.</p>
+    <pre><code class="hljs language-pgsql"><span class="hljs-keyword">SELECT</span> *
+<span class="hljs-keyword">FROM</span> <span class="hljs-keyword">Policy</span>
+<span class="hljs-keyword">WHERE</span> ConstructionType = "Masonry";
+</code></pre>
+    <p></p>
+    <p><strong>Step 4:</strong> Select the "Go" button.</p>
+    <p><strong>Step 5:</strong> Review the query output.</p>
+    <ul>
+      <li>When these steps are completed correctly, the query output will display 6 columns and 6 rows of data from the Policy table.</li>
+    </ul>
+    <p>
+      <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-CS0151EN-SkillsNetwork/labs/Module_4/Lab_Basic_Database_Operations/images/15_X4A_Complete.png" alt="Result set filtered by Construction Type"><br>
+    </p>
+    <hr>
+    <h2>Task B: Write the SQL Code</h2>
+    <p><strong>Step 1:</strong> Select the "SQL" tab from the top menu to access the query box.</p>
+    <p><strong>Step 2:</strong> Use the "Clear" button to delete the previous SQL Statement.</p>
+    <p><strong>Step 3:</strong> Using the Source Code in Task A as an example, write a query to display contents of the <code>Policy</code> table where the <code>Region</code> is <code>East</code>.</p>
+    <p><strong>Step 4:</strong> Select the "Go" button.</p>
+    <p><strong>Step 5:</strong> Review the query output. When these steps are completed correctly, the query output will display 6 columns and 6 rows of data from the Policy table.</p>
+    <p>
+      <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-CS0151EN-SkillsNetwork/labs/Module_4/Lab_Basic_Database_Operations/images/16_X4B_Complete.png" alt="Result set filtered by Region"><br>
+    </p>
+    <details>
+      <summary>Click here for Hint</summary>
+      <blockquote>
+        <p>Similar to the query in Task A, create a condition to test the value in the column name 'Region'. Enclose the string value in quotes.</p>
+      </blockquote>
+    </details><br>
+    <details>
+      <summary>Click here for Solution</summary>
+      <blockquote></blockquote>
+      <pre><code class="hljs language-pgsql"><span class="hljs-keyword">SELECT</span> *
+<span class="hljs-keyword">FROM</span> <span class="hljs-keyword">Policy</span>
+<span class="hljs-keyword">WHERE</span> Region ="East";
+</code></pre>
+      <p></p>
+    </details>
+    <h1></h1>
+    <h2>Exercise 5: Add a new row to a table</h2>
+    <p>To add a new record/row to a table, use the SQL statement <code>INSERT INTO</code>.</p>
+    <p><strong>Syntax of an <code>INSERT INTO</code> Statement</strong></p>
+    <pre><code class="hljs language-pgsql"><span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> <span class="hljs-built_in">table_name</span>
+<span class="hljs-keyword">VALUES</span> (value1, value2, value3, ...);
+</code></pre>
+    <p></p>
+    <ul>
+      <li>The first line indicates the name of table where the new record will be added.</li>
+      <li>The second line assigns values in the same order as the columns in the table.</li>
+    </ul>
+    <hr>
+    <h2>Task A: Review the Source Code</h2>
+    <p><strong>Step 1:</strong> Select the "SQL" tab from the top menu to access the query box.</p>
+    <p><strong>Step 2:</strong> Use the "Clear" button to delete the previous SQL Statement.</p>
+    <p><strong>Step 3:</strong> Copy and paste the code block below to the query box to insert a row into the Policy table.</p>
+    <pre><code class="hljs language-scheme">INSERT INTO Policy
+values (<span class="hljs-name">100329</span>, <span class="hljs-symbol">'4/10/2021</span>', <span class="hljs-symbol">'MN</span>', <span class="hljs-symbol">'Midwest</span>', <span class="hljs-symbol">'Frame</span>', <span class="hljs-symbol">'Hospitality</span>')<span class="hljs-comment">;</span>
+</code></pre>
+    <p></p>
+    <p>The values, written in list format, for the source code above are as follows:</p>
+    <ul>
+      <li><code>PolicyID</code> = 100329</li>
+      <li><code>ExpiryDate</code> = 4/10/2021</li>
+      <li><code>State</code> = MN</li>
+      <li><code>Region</code> = Midwest</li>
+      <li><code>ConstructionType</code> = Frame</li>
+      <li><code>Business</code> = Hospitality</li>
+    </ul>
+    <p><strong>Step 4:</strong> Select the "Go" button.</p>
+    <p>When these steps are done correctely, you will see the following message:</p>
+    <p>
+      <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-CS0151EN-SkillsNetwork/labs/Module_4/Lab_Basic_Database_Operations/images/17_X5A_Complete.png" alt="Confirmation of one additional record"><br>
+    </p>
+    <p><strong>Step 5:</strong> Review the updated table. Return to the query box and run the SQL Statement: <code>SELECT * from Policy</code> to see there are now 11 records in the table.</p>
+    <p>
+      <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-CS0151EN-SkillsNetwork/labs/Module_4/Lab_Basic_Database_Operations/images/18_X5A_Updated_Table.png" alt="Result set with 11 total records"><br>
+    </p>
+    <hr>
+    <h2>Task B: Write the SQL Code</h2>
+    <p><strong>Step 1:</strong> Select the "SQL" tab from the top menu to access the query box.</p>
+    <p><strong>Step 2:</strong> Use the "Clear" button to delete the previous SQL Statement.</p>
+    <p><strong>Step 3:</strong> Using the same code syntax as above, write an INSERT INTO statement to add one row to the table <code>Policy</code> with the following values:</p>
+    <ul>
+      <li><code>PolicyID</code> = 100500</li>
+      <li><code>ExpiryDate</code> = ‘5/5/2021’</li>
+      <li><code>State</code> = ‘NJ’</li>
+      <li><code>Region</code> = ‘East’</li>
+      <li><code>ConstructionType</code> = ‘Masonry’</li>
+      <li><code>Business</code> = ‘Office’</li>
+    </ul>
+    <p><strong>Step 4:</strong> Select the "Go" button.</p>
+    <p>When these steps are done correctely, you will see the following message:</p>
+    <p>
+      <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-CS0151EN-SkillsNetwork/labs/Module_4/Lab_Basic_Database_Operations/images/19_X5B_Complete.png" alt="Confirmation of additional record"><br>
+    </p>
+    <p><strong>Step 5:</strong> Review the updated table. Return to the query box and run the SQL Statement: <code>SELECT * from Policy</code> to see there are now 12 records in the table.</p>
+    <p>
+      <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-CS0151EN-SkillsNetwork/labs/Module_4/Lab_Basic_Database_Operations/images/20_X5B_Updated_Table.png" alt="Result set with 12 total records"><br>
+    </p>
+    <details>
+      <summary>Click here for Hint</summary>
+      <blockquote>
+        <p>All values, except for the PolicyID, should be enclosed in single or double quotes.</p>
+      </blockquote>
+    </details><br>
+    <details>
+      <summary>Click here for Solution</summary>
+      <blockquote></blockquote>
+      <pre><code class="hljs language-scheme">INSERT INTO Policy
+VALUES (<span class="hljs-name">100500</span>, <span class="hljs-symbol">'5/5/2021</span>', <span class="hljs-symbol">'NJ</span>', <span class="hljs-symbol">'East</span>', <span class="hljs-symbol">'Masonry</span>', <span class="hljs-symbol">'Office</span>')
+</code></pre>
+      <p></p>
+    </details>
+    <h1></h1>
+    <h2>Exercise 6: Delete a row from a table</h2>
+    <p>The <code>DELETE</code> statement is used to delete existing records from a table.</p>
+    <p><strong>Sytnax of a <code>DELETE</code> Statement</strong></p>
+    <pre><code class="hljs language-pgsql"><span class="hljs-keyword">DELETE</span> <span class="hljs-keyword">FROM</span> <span class="hljs-built_in">table_name</span> 
+<span class="hljs-keyword">WHERE</span> condition;
+</code></pre>
+    <p></p>
+    <ul>
+      <li>The first line indicates the name of the table that records will be deleted from.</li>
+      <li>The second line defines the conditon and deletes the record if the condition is true.</li>
+    </ul>
+    <hr>
+    <h3>Task A: Review the Source Code</h3>
+    <p><strong>Step 1:</strong> Select the "SQL" tab from the top menu to access the query box.</p>
+    <p><strong>Step 2:</strong> Use the "Clear" button to delete the previous SQL Statement.</p>
+    <p><strong>Step 3:</strong> Copy and paste the code block below to delete the record for PolicyID 100329.</p>
+    <pre><code class="hljs language-pgsql"><span class="hljs-keyword">Delete</span> <span class="hljs-keyword">From</span> <span class="hljs-keyword">Policy</span>
+<span class="hljs-keyword">Where</span> PolicyID=<span class="hljs-number">100329</span>;
+</code></pre>
+    <p></p>
+    <p><strong>Step 4:</strong> Select the "Go" button.</p>
+    <ul>
+      <li>A pop-up will appear to confirm that you want to delete the row.</li>
+    </ul>
+    <p>
+      <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-CS0151EN-SkillsNetwork/labs/Module_4/Lab_Basic_Database_Operations/images/Delete_Confirmation.png" alt="Pop-Up request to confirm action to delete record"><br>
+    </p>
+    <ul>
+      <li>
+        <p>Select "OK "to proceed running the code and deleting the record.</p>
+      </li>
+      <li>
+        <p>When these steps are done correctely, you will see the following message:</p>
+      </li>
+    </ul>
+    <p>
+      <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-CS0151EN-SkillsNetwork/labs/Module_4/Lab_Basic_Database_Operations/images/21_X6A_Complete.png" alt="Confirmation of deleted record"><br>
+    </p>
+    <p><strong>Step 5:</strong> Review the updated table. Return to the query box and run the SQL Statement: <code>SELECT * from Policy</code> to see there are now 11 records in the table.</p>
+    <p>
+      <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-CS0151EN-SkillsNetwork/labs/Module_4/Lab_Basic_Database_Operations/images/22_X6A_Updated_Table.png" alt="Result set with 11 total records"><br>
+    </p>
+    <hr>
+    <h3>Task B: Write the SQL Code</h3>
+    <p><strong>Step 1:</strong> Select the "SQL" tab from the top menu to access the query box.</p>
+    <p><strong>Step 2:</strong> Use the "Clear" button to delete the previous SQL Statement.</p>
+    <p><strong>Step 3:</strong> Write a query to delete all rows that are in Midwest region.</p>
+    <p><strong>Step 4:</strong> Select the "Go" button.</p>
+    <p>When these steps are done correctely, you will see the following message:</p>
+    <p>
+      <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-CS0151EN-SkillsNetwork/labs/Module_4/Lab_Basic_Database_Operations/images/23_X6B_Complete.png" alt="Confirmation of 2 deleted records"><br>
+    </p>
+    <p><strong>Step 5:</strong> Review the updated table.Return to the query box and run the SQL Statement: <code>SELECT * from Policy</code> to see there are now 9 records in the table.</p>
+    <p>
+      <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-CS0151EN-SkillsNetwork/labs/Module_4/Lab_Basic_Database_Operations/images/24_X6B_Updated_Table.png" alt="Result set with 9 total records"><br>
+    </p>
+    <details>
+      <summary>Click here for Hint</summary>
+      <blockquote>
+        <p>Use the WHERE command to limit query and remember to enclose region in single or double quotes.</p>
+      </blockquote>
+    </details><br>
+    <details>
+      <summary>Click here for Solution</summary>
+      <blockquote></blockquote>
+      <pre><code class="hljs language-pgsql"><span class="hljs-keyword">Delete</span> <span class="hljs-keyword">From</span> <span class="hljs-keyword">Policy</span>
+<span class="hljs-keyword">Where</span> Region="Midwest";
+</code></pre>
+      <p></p>
+    </details>
+    <h1></h1>
+    <h2>Exercise 7: Delete a table from the database</h2>
+    <p>To a delete an existing tablle from the database, use the <code>DROP</code> command</p>
+    <p><strong>Sytnax of a <code>DELETE</code> Statement</strong></p>
+    <pre><code class="hljs language-pgsql"><span class="hljs-keyword">DROP</span> <span class="hljs-keyword">TABLE</span> <span class="hljs-built_in">table_name</span>;
+</code></pre>
+    <ul>
+      <li>This line indicates the name of the table that will be deleted from the database.</li>
+    </ul>
+    <hr>
+    <h3>Task A: Write the SQL Code</h3>
+    <p><strong>Step 1:</strong> Select the "SQL" tab from the top menu to access the query box.</p>
+    <p><strong>Step 2:</strong> Use the "Clear" button to delete the previous SQL Statement</p>
+    <p><strong>Step 3:</strong> Copy and paste the code block below to delete the table <code>Policy</code> from the database.</p>
+    <pre><code class="hljs language-pgsql"><span class="hljs-keyword">DROP</span> <span class="hljs-keyword">TABLE</span> <span class="hljs-keyword">Policy</span>;
+</code></pre>
+    <p><strong>Step 4:</strong> Select the "Go" button.</p>
+    <ul>
+      <li>A pop-up will appear to confirm that you want to delete the table.</li>
+      <li>Select "OK "to proceed running the code and deleting the table.</li>
+      <li>When these steps are done correctely, you will see the following message:</li>
+    </ul>
+    <p>
+      <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-CS0151EN-SkillsNetwork/labs/Module_4/Lab_Basic_Database_Operations/images/25_X7A_Complete.png" alt="Confirmation of deleted table"><br>
+    </p>
+    <p><strong>Step 5:</strong> Review the updated database.</p>
+    <ul>
+      <li>Select "Insurance" from the left-hand menu to confirm there are no tables in the Insurance database.</li>
+    </ul>
+    <p>
+      <img src="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-CS0151EN-SkillsNetwork/labs/Module_4/Lab_Basic_Database_Operations/images/26_X7A_Updated_DB.png" alt="No tables in Insurance database"><br>
+    </p>
+    <h1></h1>
+    <h2>Congratulations! You have completed the lab and you are ready for the next topic.</h2>
+    <h3>Author(s)</h3>
+    <p>Roopa Raghavan</p>
+    <h3>Other Contributors</h3>
+    <p>Jennifer Garcia</p>
+    <p>Rav Ahuja</p>
+    <h3>Changelog</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Version</th>
+          <th>Changed by</th>
+          <th>Change Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>2022-06-24</td>
+          <td>1.1</td>
+          <td>Rav</td>
+          <td>Enahnced instructions and screenshots</td>
+        </tr>
+        <tr>
+          <td>2022-06-23</td>
+          <td>1.0</td>
+          <td>Jennifer</td>
+          <td>Updated instructions and updated screenshots</td>
+        </tr>
+        <tr>
+          <td>2022-04-16</td>
+          <td>0.1</td>
+          <td>Roopa</td>
+          <td>Initial version created.</td>
+        </tr>
+      </tbody>
+    </table>
+    <h2></h2>
+    <h3 align="center">© IBM Corporation 2022. All rights reserved.</h3>
+    <h3></h3>
+    <script>window.addEventListener('load', function() {
+snFaculty.inject();
+});</script>
+    <script src="https://skills-network-assets.s3.us.cloud-object-storage.appdomain.cloud/scripts/inject.43989f87.js"></script>
+    <script src="https://unpkg.com/@highlightjs/cdn-assets@10.7.1/highlight.min.js"></script>
+    <script src="https://unpkg.com/highlightjs-badge@0.1.9/highlightjs-badge.min.js"></script>
+  </body>
+</html>
